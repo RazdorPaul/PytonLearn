@@ -1,27 +1,23 @@
-def sum_tree(a, b, c):
-    return a + b + c
-
 def is_simple(func):
-    def wrapper():
-        summ = func
+    def wrapper(*args):
+        summ = func(*args)
+        print(f"Сумма чисел равна {summ}")
         flag = True
         for i in range(2, summ):
             if summ % i == 0:
                 flag = False
                 break
-        return flag
+        if flag:
+            print(f"Сумма чисел простое число")
+        else:
+            print(f"Сумма чисел составное число")
     return wrapper
 
-print("Сумма трех чисел равна", sum_tree(1, 2,4))
-decor_summ = is_simple(sum_tree(1, 2, 4))
-if decor_summ() == True:
-    print("сумма указанных чисел простое число")
-else:
-    print("Сумма указанных чисел составное число")
+@is_simple
+def sum_tree(a, b, c):
+    return a + b + c
 
-print("Сумма трех чисел равна", sum_tree(1, 3,5))
-decor_summ = is_simple(sum_tree(1, 3, 5))
-if decor_summ() == True:
-    print("сумма указанных чисел простое число")
-else:
-    print("Сумма указанных чисел составное число")
+
+is_simple(sum_tree(1,2,4))
+is_simple(sum_tree(1,3,4))
+is_simple(sum_tree(1,4,6))
